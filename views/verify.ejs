@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>verify Account</title>
+</head>
+<body>
+    <h1>Thanks for Registering our account please verify now otp has been send to <%= locals.email %></h1>
+   
+        <% if (locals.error){ %>
+            <p>
+                <%= locals.error %>
+            </p>
+        <% } %>
+    
+    <form action="/user/verify" method="POST">
+        <input type="text" name="email" hidden value="<%= locals.email %>">
+        <input type="text" name="otp" placeholder="Enter your otp here">
+        <button type="submit">verify</button>
+    </form>
+</body>
+</html>

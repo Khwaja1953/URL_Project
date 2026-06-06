@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body>
+    <h1 class="text-green-600">Welcome Login your account here</h1>
+    <div>
+        <% if (locals.error){ %>
+            <p style="color: red;"><%= locals.error %></p>
+
+       <% } %>
+       <% if (locals.data){ %>
+            <p style="color: green;"><%= locals.data %></p>
+
+       <% } %>
+    </div>
+
+    <form action="/user/login" method="POST">
+        
+        <div>
+            <input type="email" name="email" placeholder="Enter your email">
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Enter your password">
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+    <a href="/register">create New Account here.</a>
+</body>
+</html>

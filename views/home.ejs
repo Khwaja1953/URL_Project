@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+
+<body>
+    
+    <h1 class="text-purple-700 bg-black text-4xl text-center h-[101px] flex justify-center items-center sticky top-0 uppercase">Welcome short your url here</h1>
+    <span><img class="h-[15vh] rounded-full absolute top-[1vh] right-[10vw]" src="http://localhost:3000<%= locals.user.profile %>" alt=""></span>
+    <div>
+        <% if (locals.error){ %>
+
+            <p style="color: red;">
+                <%= locals.error %>
+            </p>
+            <% } %>
+                <% if (locals.url){ %>
+
+                    <p>shortned url: <a style="color: green;"
+                            href="http://localhost:3000/url/<%= locals.url.shortId %>">
+                            <%= locals.url.shortId %>
+                        </a> </p>
+                    <% } %>
+    </div>
+    <form action="/url" method="POST" class="border rounded-2xl h-[20vh] w-1/2 mx-auto my-2.5 flex flex-col justify-center gap-2 items-center">
+
+        <input class="border rounded-xl p-2.5 w-1/2" type="text" name="url" placeholder="Enter your url...">
+        <button class="border rounded-xl px-2 py-0.5 hover:cursor-pointer w-2/12 text-2xl text-(--primary-color) bg-(--bg-color)" type="submit">submit</button>
+    </form>
+
+    <div>
+        <% if (locals.allUrls){ %>
+            <h1 class="text-4xl text-(--text-color) my-10">All URLs Available</h1>
+
+            <table border cellpadding="5px" cellspacing="5px" class="flex flex-col gap-4 justify-center items-center w-full">
+                <thead class="w-1/2">
+                    <tr class="text-3xl flex justify-evenly">
+                        <th>S.No</th>
+                        <th>Actual URL</th>
+                        <th>Short URL</th>
+                        <th>Visits</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="w-1/2">
+
+                    <% locals.allUrls.forEach((item,index)=>{ %>
+                        <tr class="text-xl flex justify-evenly items-center gap-4 *:flex *:justify-center">
+                            <td>
+                                <%= index + 1 %>
+                            </td>
+                            <td>
+                                <%= item.url %>
+                            </td>
+                            <td><a style="color: black;" href="http://localhost:3000/url/<%= item.shortId %>">
+                                    <%= item.shortId %>
+                                </a></td>
+                            <td>
+                                <%= item.visitHistory.length %>
+                            </td>
+                            <td><button type="button" class="deleteBtn" data-id="<%= item.shortId %>">Delete</button>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+
+                </tbody>
+            </table>
+
+            <% } %>
+    </div>
+
+    <script>
+        let btns = document.querySelectorAll(".deleteBtn");
+
+        btns.forEach((btn) => {
+            const id = btn.dataset.id;
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+
+                const response = await fetch(`http://localhost:3000/admin/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "content-type": "application/json"
+                    }
+                });
+
+                if (response.status === 204) {
+                    alert("url deleted successfully");
+                    location.reload();
+                } else {
+                    alert("failed to delete");
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
