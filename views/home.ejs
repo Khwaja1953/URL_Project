@@ -11,7 +11,7 @@
 <body>
     
     <h1 class="text-purple-700 bg-black text-4xl text-center h-[101px] flex justify-center items-center sticky top-0 uppercase">Welcome short your url here</h1>
-    <span><img class="h-[15vh] rounded-full absolute top-[1vh] right-[10vw]" src="http://localhost:3000<%= locals.user.profile %>" alt=""></span>
+    <span><img class="h-[15vh] rounded-full absolute top-[1vh] right-[10vw]" src="https://url-project-1qu6.onrender.com<%= locals.user.profile %>" alt=""></span>
     <div>
         <% if (locals.error){ %>
 
@@ -22,7 +22,7 @@
                 <% if (locals.url){ %>
 
                     <p>shortned url: <a style="color: green;"
-                            href="http://localhost:3000/url/<%= locals.url.shortId %>">
+                            href="https://url-project-1qu6.onrender.com/url/<%= locals.url.shortId %>">
                             <%= locals.url.shortId %>
                         </a> </p>
                     <% } %>
@@ -57,7 +57,7 @@
                             <td>
                                 <%= item.url %>
                             </td>
-                            <td><a style="color: black;" href="http://localhost:3000/url/<%= item.shortId %>">
+                            <td><a style="color: black;" href="https://url-project-1qu6.onrender.com/url/<%= item.shortId %>">
                                     <%= item.shortId %>
                                 </a></td>
                             <td>
@@ -83,7 +83,7 @@
             btn.addEventListener("click", async (e) => {
                 e.preventDefault();
 
-                const response = await fetch(`http://localhost:3000/admin/${id}`, {
+                const response = await fetch(`https://url-project-1qu6.onrender.com/admin/${id}`, {
                     method: "DELETE",
                     headers: {
                         "content-type": "application/json"
