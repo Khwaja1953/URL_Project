@@ -9,7 +9,7 @@ try{
 
     const existingUrl = await Url.findOne({url});
     if (existingUrl){
-        return res.render("home",{data: "url already shortned", url: existingUrl});
+        return res.render("home",{data: "url already shortned", url: existingUrl,user:req.user});
     }
 
     const shortId = shortid.generate();
@@ -17,7 +17,7 @@ try{
     const savedUrl = await Url.create({url,shortId,createdBy: req.user._id});
     if (!savedUrl)return res.render("home",{error: "something went wrong please try again."});
 
-    return res.status(201).render("home",{data: "success",url:savedUrl})
+    return res.status(201).render("home",{data: "success",url:savedUrl,user:req.user})
 
 }
 catch(err){
